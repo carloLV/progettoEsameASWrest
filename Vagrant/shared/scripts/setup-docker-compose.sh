@@ -16,3 +16,4 @@ function installDockerCompose {
 }
 
 installDockerCompose
+echo "done"

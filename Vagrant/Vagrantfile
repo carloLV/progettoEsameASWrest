@@ -1,9 +1,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 #
-# L'installazione prevede: 
-# - Docker
-# - Docker-compose
+# Vagrantfile per la creazione di una macchina virtuale client ed una server
 #
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -14,25 +12,53 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# cartella per le risorse condivise 
 	config.vm.synced_folder "./shared/", "/home/vagrant/shared", :mount_options => ["dmode=777", "fmode=777"]
 
-	config.vm.hostname = "server"    
+	#
+    	# Configurazione della macchina "server", che prevede: 
+        # - Docker
+        # - Docker-compose
+        # - Docker contenenti: 
+	#	DB2 Express -c
+	#	Apache Tomee
+        #
+    	config.vm.define "server" do |node|
+		node.vm.hostname = "server"   
+		node.vm.network "private_network", ip: "10.11.1.101", virtualbox__intnet: true 
 
-        config.vm.provider "virtualbox" do |v| 
-            v.memory = 2048
-        end 
+        	node.vm.provider "virtualbox" do |v| 
+            		v.memory = 2048
+        	end
 
-        config.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
-        config.ssh.forward_agent = true
+        	node.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
+	        node.ssh.forward_agent = true
 
-        # provisioning con bash 
-     	config.vm.provision :shell, :inline => 'apt-get update'
+        	# provisioning con bash 
+	     	node.vm.provision :shell, :inline => 'apt-get update'
+		node.vm.provision :shell, path: "./shared/scripts/setup-docker.sh"
+	        # aggiunge vagrant al gruppo di docker (richiede un reboot?) 
+        	node.vm.provision :shell, :inline => 'usermod -aG docker vagrant'        
+        	node.vm.provision :shell, path: "./shared/scripts/setup-docker-compose.sh"
+		#installazione (solo al pimo boot) ed avvio dei docker come indicato nel file ./shared/scripts/docker-compose.yml
+		node.vm.provision :shell, :inline => '(cd ./shared/scripts/;docker-compose up -d)', run:"always"
+        	node.vm.provision :shell, inline: "echo  'configurazione vm server completata'"
+	end
 
-	config.vm.provision :shell, path: "./shared/scripts/setup-docker.sh"
-        # aggiunge vagrant al gruppo di docker (richiede un reboot?) 
-        config.vm.provision :shell, :inline => 'usermod -aG docker vagrant'        
-        # installa anche docker-compose 
-        config.vm.provision :shell, path: "./shared/scripts/setup-docker-compose.sh"
+   	#
+	# Configurazione del nodo "client"
+    	#
+    	config.vm.define "client" do |node|
+        	node.vm.hostname = "client"    
+        	node.vm.network "private_network", ip: "10.11.1.201", virtualbox__intnet: true
 
-        config.vm.provision :shell, 
-            inline: "echo  'configurazione vm server completata'"
+        	node.vm.provider "virtualbox" do |v| 
+            		v.memory = 1024 
+	        end 
 
+        	node.vm.network "forwarded_port", guest: 22, host: 2221, id: 'ssh', auto_correct: true
+     		node.ssh.forward_agent = true
+ 
+	        # provisioning con bash 
+	        node.vm.provision :shell, :inline => 'apt-get update'
+  
+	        node.vm.provision :shell, inline: "echo  'configurazione vm client completata'"
+    end
 end
