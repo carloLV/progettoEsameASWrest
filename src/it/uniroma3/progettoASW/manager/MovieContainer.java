@@ -1,21 +1,13 @@
 package it.uniroma3.progettoASW.manager;
 
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.List;
 
-import javax.ejb.EJB;
+import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.transaction.*;
 import java.net.URI;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-
-
 import it.uniroma3.progettoASW.model.Catalogue;
 import it.uniroma3.progettoASW.model.Movie;
 import it.uniroma3.progettoASW.exceptions.CatalogueNotFoundException;
@@ -36,7 +28,7 @@ public class MovieContainer {
 	}
 
 	@POST
-	//@Transactional
+	@Transactional
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response createMovie(@FormParam("title") String title,
 			@FormParam("year") Integer year,
@@ -47,7 +39,7 @@ public class MovieContainer {
 		Movie m = new Movie(title, year, director, length, genre);
 
 		this.em.persist(m);
-		// cataloue facade verifica esistenza catalogo e inserisce film
+		// catalogue facade verifica esistenza catalogo e inserisce film
 		return Response.created(URI.create("/" + title)).entity(m).build();
 
 	}
@@ -105,35 +97,33 @@ public class MovieContainer {
 		throw new MovieNotFoundException();
 	}
 
-	//accetta in input un oggetto film
-//
-//	@POST
-//	//@Transactional
-//	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//	public Response createMovie(Movie m) {
-//		Catalogue c = m.getCatalogue();
-//		Long id = m.getId();
-//		Movie oldMovie = this.em.find(Movie.class, id);
-//		if (oldMovie==null) {
-//			try {
+	@POST
+	@Transactional
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response createMovie(Movie m) {
+		//Catalogue c = m.getCatalogue();
+		Long id = m.getId();
+		Movie oldMovie = this.em.find(Movie.class, id);
+		if (oldMovie==null) {
+			try {
 //				c.addMovie(m);
 //				c.setLastUpdate(new GregorianCalendar());
 //				this.em.merge(c);
-//				this.em.persist(m);
-//				return Response.created(URI.create("/" + id)).entity(m).build();
-//			} catch (Exception e) {
-//				String errorMessage = "Error while creating Movie " + m.toString() + ": " + e.getMessage();
-//				throw new WebApplicationException(
-//						Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-//						.entity(errorMessage).type("text/plain").build());
-//			}
-//		} else {
-//			String errorMessage = "Error while creating Movie with id " + id + ": a movie with the same id already exists";
-//			throw new WebApplicationException(
-//					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-//					.entity(errorMessage).type("text/plain").build());
-//		}
-//	}
-//
+				this.em.persist(m);
+				return Response.created(URI.create("/" + id)).entity(m).build();
+			} catch (Exception e) {
+				String errorMessage = "Error while creating Movie " + m.toString() + ": " + e.getMessage();
+				throw new WebApplicationException(
+						Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+						.entity(errorMessage).type("text/plain").build());
+			}
+		} else {
+			String errorMessage = "Error while creating Movie with id " + id + ": a movie with the same id already exists";
+			throw new WebApplicationException(
+					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(errorMessage).type("text/plain").build());
+		}
+	}
+
 
 }
