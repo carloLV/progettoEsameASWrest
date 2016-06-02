@@ -1,13 +1,11 @@
 package it.uniroma3.progettoASW.manager;
 
-import java.net.URI;
-import java.util.List;
+
 import javax.ejb.*;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import it.uniroma3.progettoASW.exceptions.MovieNotFoundException;
 import it.uniroma3.progettoASW.model.Movie;
 
 @Stateless
