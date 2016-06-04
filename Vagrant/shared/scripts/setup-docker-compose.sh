@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source "/home/vagrant/shared/scripts/common.sh"
-
 # set up Docker Compose constants 
 DOCKER_COMPOSE_VERSION=1.7.1
 GET_DOCKER_COMPOSE_URL=https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`

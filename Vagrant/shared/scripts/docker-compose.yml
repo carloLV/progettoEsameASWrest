@@ -10,7 +10,7 @@ services:
   tomee:
     depends_on:
       - db
-    image: tomee:latest
+    image: tomee:8-jre-1.7.4-jaxrs
     links:
       - db
     ports:
