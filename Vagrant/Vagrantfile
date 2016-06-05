@@ -21,7 +21,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	#	Apache Tomee
         #
     	config.vm.define "server" do |node|
-		node.vm.hostname = "server"   
+		node.vm.hostname = "server"  
+		# espone la porta 8090 temporaneamente a scopo di test
+		node.vm.network :forwarded_port, guest: 8080, host: 8090
 		node.vm.network "private_network", ip: "10.11.1.101", virtualbox__intnet: true 
 
         	node.vm.provider "virtualbox" do |v| 
@@ -34,11 +36,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         	# provisioning con bash 
 	     	node.vm.provision :shell, :inline => 'apt-get update'
 		node.vm.provision :shell, path: "./shared/scripts/setup-docker.sh"
-	        # aggiunge vagrant al gruppo di docker (richiede un reboot?) 
+	        # aggiunge vagrant al gruppo di docker (non sembra richiedere un reboot)
         	node.vm.provision :shell, :inline => 'usermod -aG docker vagrant'        
         	node.vm.provision :shell, path: "./shared/scripts/setup-docker-compose.sh"
-		#installazione (solo al pimo boot) ed avvio dei docker come indicato nel file ./shared/scripts/docker-compose.yml
 		node.vm.provision :shell, :inline => '(cd ./shared/scripts/;docker-compose up -d)', run:"always"
+		node.vm.provision :shell, path: "./shared/scripts/deploy-war.sh" , run:"always"
         	node.vm.provision :shell, inline: "echo  'configurazione vm server completata'"
 	end
 
