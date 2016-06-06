@@ -8,7 +8,7 @@
 		<class>it.uniroma3.progettoASW.model.Movie</class>
 		<properties>
 			<property name="openjpa.ConnectionDriverName" value="com.ibm.db2.jcc.DB2Driver" />
-						
+
 			<property name="openjpa.ConnectionUserName" value="root" />
 			<property name="openjpa.ConnectionPassword" value="password" />
 			<property name="openjpa.ConnectionURL" value="jdbc:db2://172.17.0.1:50000/dbASW" />
