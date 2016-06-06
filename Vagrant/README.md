@@ -1,5 +1,3 @@
-# Risorse Vagrant per la creazione dell'ambiente per il progetto dell'esame di Architettura dei Sistemi Software 
-
 Vengono create due macchine virtuali (server e client).
 La macchina server ha al suo interno docker e docker-compose, con due docker attivi: DB2 Express-C e Apache Tomee 1.7.4.
 La macchina client prevede Ubuntu 14.04 ed è già dotata di un client curl.
@@ -14,17 +12,6 @@ Non è necessario ricreare l'ambiente. I cambiamenti vengono effettuati nella ma
 
 Prima di creare l'ambiente copiare i file necessari fuori dalla cartella di eclipse per evitare di sincronizzare con git file inutili.
 
+Nel caso Vagrant dia problemi all'avvio della macchina (non riesce a montare con successo le cartelle condivise) installare il plugin vbguest con il comando:
 
-In attesa dell'aggiornamento del docker db2 utilizzare le seguenti configurazioni del file persistence.xml
-	
-	<property name="openjpa.ConnectionUserName" value="root" />
-	<property name="openjpa.ConnectionPassword" value="password" />
-	<property name="openjpa.ConnectionURL" value="jdbc:db2://172.17.0.1:50000/dbASW" />
-
-Lanciare inoltre al primo avvio i seguenti comandi (nell'ordine):
-
-	vagrant ssh server
-	docker exec -it scripts_db_1 bash
-	passwd
-
-impostare quindi come nuova password "password".
+	vagrant plugin install vagrant-vbguest
