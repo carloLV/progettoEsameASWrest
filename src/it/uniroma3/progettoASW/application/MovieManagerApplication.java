@@ -17,23 +17,9 @@ public class MovieManagerApplication extends Application{
 	 @Override
 	    public Set<Class<?>> getClasses() {
 	        final Set<Class<?>> classes = new HashSet<>();
-	        // register root resource
 	        classes.add(MovieResource.class);
 	        classes.add(MovieContainer.class);
 	        return classes;
-	    }
-
-//	    @Override
-//	    /* Risolve il problema del Provider JSON non trovato alla prima richiesta.
-//	     * Vedi https://java.net/jira/browse/GLASSFISH-21141 */
-//		public Set<Object> getSingletons() {
-//			ObjectMapper mapper = new ObjectMapper();
-//			mapper.registerModule(new JaxbAnnotationModule());
-//			return ImmutableSet
-//	  				.<Object> builder()
-//					.add(new JacksonJaxbJsonProvider(mapper, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS)).build();
-//		}
-	
-	
+	    }	
 
 }

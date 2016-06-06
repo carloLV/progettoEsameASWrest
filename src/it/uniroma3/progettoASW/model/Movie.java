@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.*;
 
 @Entity
@@ -28,9 +27,6 @@ public class Movie implements java.io.Serializable {
 	private String director;
 	@XmlElement
 	private Integer length;
-	@ManyToOne
-	@XmlElement
-	private Catalogue catalogue;
 	@XmlElement
 	private String genre;
 	
@@ -83,13 +79,5 @@ public class Movie implements java.io.Serializable {
 	public void setLength(Integer length) {
 		this.length = length;
 	}
-
-	public Catalogue getCatalogue() {
-		return catalogue;
-	}
-
-	public void setCatalogue(Catalogue catalogue) {
-		this.catalogue = catalogue;
-	}
-		
+	
 }
