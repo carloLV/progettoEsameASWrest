@@ -79,5 +79,13 @@ public class Movie implements java.io.Serializable {
 	public void setLength(Integer length) {
 		this.length = length;
 	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	
 }

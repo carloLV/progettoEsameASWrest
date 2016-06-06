@@ -1,0 +1,6 @@
+#!/bin/bash
+
+REST_HOST_IP=10.11.1.101
+REST_CONTEXT_ROOT=progettoEsameASWrest
+REST_SERVICE_WAR=progettoEsameASWrest.war 
+REST_SERVICE_URL=http://${REST_HOST_IP}:8080/${REST_CONTEXT_ROOT}

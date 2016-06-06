@@ -22,8 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #
     	config.vm.define "server" do |node|
 		node.vm.hostname = "server"  
-		# espone la porta 8090 temporaneamente a scopo di test
-		node.vm.network :forwarded_port, guest: 8080, host: 8090
+
 		node.vm.network "private_network", ip: "10.11.1.101", virtualbox__intnet: true 
 
         	node.vm.provider "virtualbox" do |v| 
