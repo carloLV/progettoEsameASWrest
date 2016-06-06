@@ -109,19 +109,26 @@ public class MovieContainer {
 	}
 
 	@POST
-	//@Transactional
+	@Transactional
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 	public Response createMovie(Movie m) {
 		//Catalogue c = m.getCatalogue();
-		Long id = m.getId();
-		Movie oldMovie = this.em.find(Movie.class, id);
+		Movie oldMovie=null;
+		try {
+			oldMovie = this.findMovie(m.getTitle());
+		} catch (MovieNotFoundException e1) {
+			// TODO Auto-generated catch block
+			throw new WebApplicationException(
+					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(e1.toString()).type("text/plain").build());
+		}
 		if (oldMovie==null) {
 			try {
 				//				c.addMovie(m);
 				//				c.setLastUpdate(new GregorianCalendar());
 				//				this.em.merge(c);
 				this.em.persist(m);
-				return Response.created(URI.create("/" + id)).entity(m).build();
+				return Response.created(URI.create("/" + m.getTitle())).entity(m).build();
 			} catch (Exception e) {
 				String errorMessage = "Error while creating Movie " + m.toString() + ": " + e.getMessage();
 				throw new WebApplicationException(
@@ -129,7 +136,7 @@ public class MovieContainer {
 						.entity(errorMessage).type("text/plain").build());
 			}
 		} else {
-			String errorMessage = "Error while creating Movie with id " + id + ": a movie with the same id already exists";
+			String errorMessage = "Error while creating Movie with title " + m.getTitle() + ": a movie with the same title already exists";
 			throw new WebApplicationException(
 					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(errorMessage).type("text/plain").build());

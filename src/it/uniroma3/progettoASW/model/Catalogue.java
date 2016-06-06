@@ -25,7 +25,7 @@ public class Catalogue implements java.io.Serializable {
 	@XmlElement
 	private String genre;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "catalog_id")
+	@JoinColumn(name = "catalogue_id")
 	@XmlElement
 	private List<Movie> movies;
 	
