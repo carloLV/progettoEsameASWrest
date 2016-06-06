@@ -9,10 +9,9 @@
 		<class>it.uniroma3.progettoASW.model.Movie</class>
 		<properties>
 			<property name="openjpa.ConnectionDriverName" value="com.ibm.db2.jcc.DB2Driver" />
-			<!-- UserName e Password della macchina vagrant -->
-			<property name="openjpa.ConnectionUserName" value="vagrant" />
-			<property name="openjpa.ConnectionPassword" value="vagrant" />
-			<property name="openjpa.ConnectionURL" value="jdbc:db2://localhost:50000/dbASW" />
+			<property name="openjpa.ConnectionUserName" value="root" />
+			<property name="openjpa.ConnectionPassword" value="password" />
+			<property name="openjpa.ConnectionURL" value="jdbc:db2://172.17.0.1:50000/dbASW" />
 
 			<property name="openjpa.jdbc.DBDictionary" value="db2" />
 			<property name="openjpa.jdbc.SynchronizeMappings"

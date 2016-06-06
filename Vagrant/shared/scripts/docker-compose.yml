@@ -10,7 +10,7 @@ services:
   tomee:
     depends_on:
       - db
-    image: pheasanthunters/tomee1.7.4
+    image: pheasanthunters/tomee1.7.4:latest
     links:
       - db
     ports:
