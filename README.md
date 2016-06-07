@@ -21,7 +21,7 @@ I docker utilizzati al fine del progetto sono stati sviluppati dagli autori dell
 - Apache Tomee 1.7.4: https://hub.docker.com/r/pheasanthunters/tomee1.7.4/
 
 ##Autori
-Valerio Cetorelli
-Davide Di Maria
-Alessandro Fogli
-Carlo La Viola
+- Valerio Cetorelli
+- Davide Di Maria
+- Alessandro Fogli
+- Carlo La Viola
