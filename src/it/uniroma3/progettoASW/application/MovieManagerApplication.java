@@ -4,10 +4,6 @@ import java.util.*;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-//import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-//import com.google.common.collect.ImmutableSet;
 
 import it.uniroma3.progettoASW.manager.*;
 
