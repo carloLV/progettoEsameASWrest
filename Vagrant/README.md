@@ -1,17 +1,18 @@
-Vengono create due macchine virtuali (server e client).
-La macchina server ha al suo interno docker e docker-compose, con due docker attivi: DB2 Express-C e Apache Tomee 1.7.4.
-La macchina client prevede Ubuntu 14.04 ed è già dotata di un client curl.
+Per eseguire l'ambiente è consigliato copiare i file nella cartella Vagrant fuori dalla cartella sincronizzata con git, così da evitare di sincronizzare file non strattamente necessari al progetto.
 
-Per fare automaticamente il deploy del war chiamarlo progettoEsameASWrest e posizionarlo nella cartella "shared/resources".
+Creare una cartella "resources" all'interno della cartella "shared", dove andrà posizionato il file .war del progetto.
+Il war deve chiamarsi "progettoEsameASWrest.war" per eseguire correttamente il deploy in automatico, in caso si voglia cambiare nome è necessario portare le opportuna modifiche allo script deploy-war.sh contenuto nella cartella shared/scripts.
+Da notare che le macchine virtuali vengono create anche senza la presenza del corretto file war.
 
-Con l'ultimo aggiornamento degli script è stata cambiato il docker che contiene il server.
-Non è necessario ricreare l'ambiente. I cambiamenti vengono effettuati nella macchina server la prima volta che si lancia il comando:
+Per creare l'albiente posizionarsi nella cartella principale e lanciare il comando:
 
-    vagrant up
+    $ vagrant up
 
+Vengono così create e avviate automaticamente le due macchine virtuali client e server.
 
-Prima di creare l'ambiente copiare i file necessari fuori dalla cartella di eclipse per evitare di sincronizzare con git file inutili.
+##Attenzione
+Nel caso Vagrant dia problemi all'avvio delle macchine (non riesce a montare con successo le cartelle condivise) installare il plugin vbguest con il comando:
 
-Nel caso Vagrant dia problemi all'avvio della macchina (non riesce a montare con successo le cartelle condivise) installare il plugin vbguest con il comando:
+    $ vagrant plugin install vagrant-vbguest
 
-	vagrant plugin install vagrant-vbguest
+Sembra inolte essere necessaria la versione 5 di VirtualBox. Versioni precedenti hanno riscontrato problemi.
