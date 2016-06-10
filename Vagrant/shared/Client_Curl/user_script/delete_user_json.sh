@@ -6,4 +6,4 @@ echo Accessing service rest ${REST_SERVICE_NAME} at ${REST_SERVICE_URL}
 echo 
 echo "DELETE ${REST_SERVICE_URL}/user/$1"
 echo $(curl -s -H "Accept:application/json" -X DELETE "${REST_SERVICE_URL}/user/$1")
-echo “User deleted"
+echo "User deleted"
