@@ -6,6 +6,7 @@
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<jta-data-source>DB2Datasource</jta-data-source>
 		<class>it.uniroma3.progettoASW.model.Movie</class>
+		<class>it.uniroma3.progettoASW.model.User</class>
 		<properties>
 			<property name="openjpa.ConnectionDriverName" value="com.ibm.db2.jcc.DB2Driver" />
 

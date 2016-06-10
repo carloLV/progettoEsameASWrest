@@ -31,7 +31,7 @@ public class UserContainer {
 	public UserContainer() {}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 	public Response createUser(User u) {
 		User oldUser = this.findUser(u.getNickname());
 		if (oldUser==null)  {
