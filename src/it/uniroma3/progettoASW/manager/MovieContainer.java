@@ -11,44 +11,13 @@ import it.uniroma3.progettoASW.model.Movie;
 @Stateless(name="movieContainer")
 @Path("/movies")
 public class MovieContainer {
+	
 	@Context
 	private UriInfo uriInfo;
-
 	@PersistenceContext(unitName = "dbProgettoASW-unit")
 	private EntityManager em;
 
 	public MovieContainer() {}
-	
-	/*
-	 * TODO: Serve? Lo cancelliamo?
-	 */
-//	@POST
-//	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//	public Response createMovie(@FormParam("title") String title,
-//			@FormParam("year") Integer year,
-//			@FormParam("director") String director, 
-//			@FormParam("length") Integer length, 
-//			@FormParam("genre") String genre) {
-//		Movie oldMovie=this.findMovie(title);
-//		Movie m = new Movie(title, year, director, length, genre);
-//		if (oldMovie==null)  {
-//			try {
-//				this.em.persist(m);
-//				return Response.created(URI.create("/" + title)).entity(m).build();
-//			}
-//			catch (Exception e) {
-//				String errorMessage = "Error while creating Movie " + m.toString() + ": " + e.getMessage();
-//				throw new WebApplicationException(
-//						Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-//						.entity(errorMessage).type("text/plain").build());
-//			}
-//		} else {
-//			String errorMessage = "Error while creating Movie with title " + title + ": a movie with the same title already exists";
-//			throw new WebApplicationException(
-//					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-//					.entity(errorMessage).type("text/plain").build());
-//		}
-//	}
 
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
@@ -77,7 +46,7 @@ public class MovieContainer {
 				this.em.persist(m);
 				return Response.created(URI.create("/" + m.getTitle())).entity(m).build();
 			} catch (Exception e) {
-				String errorMessage = "Error while creating Movie " + m.toString() + ": " + e.getMessage();
+				String errorMessage = "Error while creating Movie " + m.getTitle() + ": " + e.getMessage();
 				throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 						.entity(errorMessage).type("text/plain").build());
 			}
@@ -96,4 +65,5 @@ public class MovieContainer {
 		}
 		return null;
 	}
+	
 }

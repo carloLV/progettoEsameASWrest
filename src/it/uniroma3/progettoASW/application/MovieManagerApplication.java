@@ -18,5 +18,6 @@ public class MovieManagerApplication extends Application{
 	        classes.add(UserResource.class);
 	        classes.add(UserContainer.class);
 	        return classes;
-	    }	
+	    }
+	 
 }

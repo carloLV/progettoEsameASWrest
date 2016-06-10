@@ -9,9 +9,9 @@ import it.uniroma3.progettoASW.model.Movie;
 @Stateless
 @Path("/movie/{id}")
 public class MovieResource {
+	
 	@Context
 	private UriInfo uriInfo;
-
 	@PersistenceContext(unitName = "dbProgettoASW-unit")
 	private EntityManager em;
 
@@ -50,7 +50,7 @@ public class MovieResource {
 				this.em.merge(oldMovie);
 				return Response.ok(m).status(Response.Status.OK).build();
 			} catch (Exception e) {
-				String errorMessage = "Error while updating Movie " + m.toString() + ": " + e.getMessage();
+				String errorMessage = "Error while updating Movie id:" + m.getId().toString() + " " + e.getMessage();
 				throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 						.entity(errorMessage).type("text/plain").build());
 			}
@@ -73,4 +73,5 @@ public class MovieResource {
 					.entity(errorMessage).type("text/plain").build());
 		}
 	}
+	
 }

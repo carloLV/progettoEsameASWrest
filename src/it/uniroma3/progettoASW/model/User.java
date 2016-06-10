@@ -1,14 +1,10 @@
 package it.uniroma3.progettoASW.model;
 
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -36,9 +32,6 @@ public class User implements java.io.Serializable {
 	private String name;
 	@XmlElement
 	private String email;
-	@OneToMany(fetch = FetchType.EAGER)
-	@XmlElement
-	private List<Movie> favouriteMovies;
 	
 	public User() {}
 	
@@ -47,13 +40,6 @@ public class User implements java.io.Serializable {
 		this.surname = surname;
 		this.name = name;
 		this.email = email;
-		this.favouriteMovies = new LinkedList<Movie>();
-	}
-	
-	public void addMovie(Movie movie){
-		List<Movie> lm = this.getMovies();
-		lm.add(movie);
-		this.setMovies(lm);
 	}
 
 	public Long getId() {
@@ -94,14 +80,6 @@ public class User implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public List<Movie> getMovies() {
-		return favouriteMovies;
-	}
-
-	public void setMovies(List<Movie> favouriteMovies) {
-		this.favouriteMovies = favouriteMovies;
 	}
 
 }

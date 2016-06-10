@@ -22,9 +22,9 @@ import it.uniroma3.progettoASW.model.User;
 @Stateless(name="userContainer")
 @Path("/users")
 public class UserContainer {
+	
 	@Context
 	private UriInfo uriInfo;
-	
 	@PersistenceContext(unitName = "dbProgettoASW-unit")
 	private EntityManager em;
 	
@@ -40,7 +40,7 @@ public class UserContainer {
 				return Response.created(URI.create("/" + u.getNickname())).entity(u).build();
 			}
 			catch (Exception e) {
-				String errorMessage = "Error while creating Movie " + u.toString() + ": " + e.getMessage();
+				String errorMessage = "Error while creating User " + u.getNickname().toString() + ": " + e.getMessage();
 				throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 						.entity(errorMessage).type("text/plain").build());
 			}

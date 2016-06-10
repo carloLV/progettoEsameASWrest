@@ -1,7 +1,7 @@
 Per eseguire l'ambiente è consigliato copiare i file nella cartella Vagrant fuori dalla cartella sincronizzata con git, così da evitare di sincronizzare file non strattamente necessari al progetto.
 
 Creare una cartella "resources" all'interno della cartella "shared", dove andrà posizionato il file .war del progetto.
-Il war deve chiamarsi "progettoEsameASWrest.war" per eseguire correttamente il deploy in automatico, in caso si voglia cambiare nome è necessario portare le opportuna modifiche allo script deploy-war.sh contenuto nella cartella shared/scripts.
+Il war deve chiamarsi "progettoEsameASWrest.war" per poter eseguire correttamente il deploy in automatico, in caso si voglia cambiare nome è necessario apportare le opportune modifiche allo script deploy-war.sh contenuto nella cartella shared/scripts.
 Da notare che le macchine virtuali vengono create anche senza la presenza del corretto file war.
 
 Per creare l'albiente posizionarsi nella cartella principale e lanciare il comando:

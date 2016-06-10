@@ -16,15 +16,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import it.uniroma3.progettoASW.model.Movie;
 import it.uniroma3.progettoASW.model.User;
 
 @Stateless
 @Path("/user/{id}")
 public class UserResource {
+	
 	@Context
 	private UriInfo uriInfo;
-
 	@PersistenceContext(unitName = "dbProgettoASW-unit")
 	private EntityManager em;
 
@@ -62,7 +61,7 @@ public class UserResource {
 				this.em.merge(oldUser);
 				return Response.ok(u).status(Response.Status.OK).build();
 			} catch (Exception e) {
-				String errorMessage = "Error while updating User " + u.toString() + ": " + e.getMessage();
+				String errorMessage = "Error while updating User id: " + u.getId().toString() + " " + e.getMessage();
 				throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 						.entity(errorMessage).type("text/plain").build());
 			}
@@ -85,35 +84,5 @@ public class UserResource {
 					.entity(errorMessage).type("text/plain").build());
 		}
 	}
-
-	@PUT
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML})
-	public Response addFavouriteMovie(@PathParam("userId") long userId, long movieId) {
-		User user = this.em.find(User.class, userId);
-		if(user == null) {
-			String errorMessage = "Error while updating User: " + userId 
-					+ " favourite movies. User not found.";
-			throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-					.entity(errorMessage).type("text/plain").build());
-		}
-		Movie movie = this.em.find(Movie.class, movieId);
-		if (movie == null) {
-			String errorMessage = "Error while updating User: " + userId 
-					+ " favourite movies. Movie with id:" + movieId + " not found.";
-			throw new WebApplicationException(
-					Response.status(Response.Status.NOT_FOUND)
-					.entity(errorMessage).type("text/plain").build());
-		}
-		try {
-			user.addMovie(movie);
-			this.em.merge(user);
-			return Response.ok(user).status(Response.Status.OK).build();
-		} 
-		catch (Exception e) {
-			String errorMessage = "Error while inserting Movie " + movie.getTitle().toString() +
-					"into User " + user.getNickname().toString() + "favourite movies: "+ e.getMessage();
-			throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity(errorMessage).type("text/plain").build());
-		}
-	}
+	
 }

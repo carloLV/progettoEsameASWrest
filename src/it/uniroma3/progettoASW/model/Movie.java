@@ -1,10 +1,14 @@
 package it.uniroma3.progettoASW.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.*;
 
 @Entity
@@ -29,6 +33,9 @@ public class Movie implements java.io.Serializable {
 	private Integer length;
 	@XmlElement
 	private String genre;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@XmlElement
+	private List<User> users;
 	
 	public Movie(){}
 
@@ -86,6 +93,14 @@ public class Movie implements java.io.Serializable {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 	
 }
