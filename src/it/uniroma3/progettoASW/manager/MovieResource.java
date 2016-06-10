@@ -15,14 +15,11 @@ public class MovieResource {
 	@PersistenceContext(unitName = "dbProgettoASW-unit")
 	private EntityManager em;
 
-	public MovieResource() {
-
-	}
+	public MovieResource() {}
 
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
-	public Movie getMovie(@PathParam("id") int id) {
-
+	public Movie getMovie(@PathParam("id") long id) {
 		try {
 			Movie m = this.em.find(Movie.class, id);
 			if (m==null) {
@@ -32,15 +29,14 @@ public class MovieResource {
 			}
 		} catch (Exception e) {
 			String errorMessage = "Error while finding Movie with id: " + id +  ": " + e.getMessage();
-			throw new WebApplicationException(
-					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+			throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(errorMessage).type("text/plain").build());
 		}
 	}
 
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML})
-	public Response updateMovie(@PathParam("id") int id, Movie m) {
+	public Response updateMovie(@PathParam("id") long id, Movie m) {
 		Movie oldMovie = this.em.find(Movie.class, id);
 		if (oldMovie==null) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -54,16 +50,15 @@ public class MovieResource {
 				this.em.merge(oldMovie);
 				return Response.ok(m).status(Response.Status.OK).build();
 			} catch (Exception e) {
-				String errorMessage = "Error while updating Product " + m.toString() + ": " + e.getMessage();
-				throw new WebApplicationException(
-						Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+				String errorMessage = "Error while updating Movie " + m.toString() + ": " + e.getMessage();
+				throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 						.entity(errorMessage).type("text/plain").build());
 			}
 		}
 	}
 
 	@DELETE
-	public Response deleteMovie(@PathParam("id") int id) {
+	public Response deleteMovie(@PathParam("id") long id) {
 		try {
 			Movie movie = this.em.find(Movie.class, id);
 			if (movie==null) {
@@ -73,9 +68,8 @@ public class MovieResource {
 				return Response.ok(movie).status(Response.Status.OK).build();
 			}
 		} catch (Exception e) {
-			String errorMessage = "Error while deleting Product with id: " + id + ": " + e.getMessage();
-			throw new WebApplicationException(
-					Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+			String errorMessage = "Error while deleting Movie with id: " + id + ": " + e.getMessage();
+			throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(errorMessage).type("text/plain").build());
 		}
 	}

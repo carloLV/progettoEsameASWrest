@@ -15,7 +15,8 @@ public class MovieManagerApplication extends Application{
 	        final Set<Class<?>> classes = new HashSet<>();
 	        classes.add(MovieResource.class);
 	        classes.add(MovieContainer.class);
+	        classes.add(UserResource.class);
+	        classes.add(UserContainer.class);
 	        return classes;
 	    }	
-
 }
