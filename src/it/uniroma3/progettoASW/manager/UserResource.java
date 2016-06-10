@@ -88,7 +88,7 @@ public class UserResource {
 
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_XML})
-	public Response addMovie(@PathParam("userId") long userId, long movieId) {
+	public Response addFavouriteMovie(@PathParam("userId") long userId, long movieId) {
 		User user = this.em.find(User.class, userId);
 		if(user == null) {
 			String errorMessage = "Error while updating User: " + userId 

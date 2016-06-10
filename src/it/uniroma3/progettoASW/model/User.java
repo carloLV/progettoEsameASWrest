@@ -38,7 +38,7 @@ public class User implements java.io.Serializable {
 	private String email;
 	@OneToMany(fetch = FetchType.EAGER)
 	@XmlElement
-	private List<Movie> favourteMovies;
+	private List<Movie> favouriteMovies;
 	
 	public User() {}
 	
@@ -47,7 +47,7 @@ public class User implements java.io.Serializable {
 		this.surname = surname;
 		this.name = name;
 		this.email = email;
-		this.favourteMovies = new LinkedList<Movie>();
+		this.favouriteMovies = new LinkedList<Movie>();
 	}
 	
 	public void addMovie(Movie movie){
@@ -97,11 +97,11 @@ public class User implements java.io.Serializable {
 	}
 
 	public List<Movie> getMovies() {
-		return favourteMovies;
+		return favouriteMovies;
 	}
 
 	public void setMovies(List<Movie> favouriteMovies) {
-		this.favourteMovies = favouriteMovies;
+		this.favouriteMovies = favouriteMovies;
 	}
 
 }
